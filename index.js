@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const svgTemplates = require('./shape'); // Import SVG templates from another file
+const svgTemplates = require('./lib/shape'); // Import SVG templates from another file
 
 // Prompt the user for input
 inquirer.prompt([
