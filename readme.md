@@ -29,9 +29,14 @@ First, navigate to the directory in your command line.
 
 Then run the command ‘Node index.js’. This will prompt the user with a set of questions, after finishing the questions, a logo.svg file will be uploaded into the directory.
 
-
-
 ![alt text](./images/questions.png)
+
+
+[![Watch the video](./images/click.png)](https://www.youtube.com/watch?v=l2mJC-xISzc)
+
+
+
+
 
 
 
