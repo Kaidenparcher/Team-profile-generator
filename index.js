@@ -1,25 +1,37 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const {Circle, Triangle, Square} = require('./lib/shape')
-const svgTemplates = require('./lib/shape');
+
 // Import SVG templates from another file
 
 
 class Logo {
     constructor(){
-        //pass shape and text
-
+        this.shape = '';
+        this.text = '';
     }
 
 
     //create a functions that will set the shape and the text
-    setText(){
-
+    setText(text, color){
+        this.text = `<text x="150" y="125" font-size="60" text-anchor="middle" fill=${color}>${text}</text>`;
     }
 
-    setShape(){
-
-    }
+    setShape(shape) {
+        switch (shape) {
+          case 'circle':
+            this.shape = `<circle cx="50%" cy="50%" r="40%"`;
+            break;
+          case 'triangle':
+            this.shape = `<polygon points="150,50 250,150 50,150"`;
+            break;
+          case 'square':
+            this.shape = `<rect x="50" y="50" width="200" height="100"`;
+            break;
+          default:
+            this.shape = '';
+        }
+      }
 
     render(){
         return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.text}${this.shape}</svg>`
@@ -55,7 +67,7 @@ inquirer.prompt([
   ])
     .then((answers) => {
       // Generate SVG using selected template and user input
-      const svg = svgTemplates[answers.shape](answers.text, answers.textColor, answers.shapeColor);
+      const svg = {Circle, Triangle, Square}[answers.shape](answers.text, answers.textColor, answers.shapeColor);
         let logo = new Logo()
         logo.setShape(answers.shape)
         logo.setText(answers.text, answers.textColor)
