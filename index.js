@@ -18,7 +18,7 @@ class Logo {
     }
 
     setText(text, color){
-        this.text = `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" fill="${color}">${text}</text>`;
+        this.text = `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="40" fill="${color}">${text}</text>`;
     }
     
       
