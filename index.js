@@ -7,15 +7,21 @@ const {Circle, Triangle, Square} = require('./lib/shape')
 
 class Logo {
     constructor(){
+        this.shapeColor = '';
         this.shape = '';
         this.text = '';
+        
     }
 
+    setShapeColor(color){
+        this.shapeColor = color;
+    }
 
-    //create a functions that will set the shape and the text
     setText(text, color){
-        this.text = `<text x="150" y="125" font-size="60" text-anchor="middle" fill=${color}>${text}</text>`;
+        this.text = `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" fill="${color}">${text}</text>`;
     }
+    
+      
 
     setShape(shape) {
         switch (shape) {
@@ -31,12 +37,13 @@ class Logo {
           default:
             this.shape = '';
         }
-      }
+    }
 
     render(){
-        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.text}${this.shape}</svg>`
-    }
+        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.shape} fill="${this.shapeColor}" />${this.text}</svg>`;
+      }      
 }
+
 
 // Prompt the user for input
 inquirer.prompt([
@@ -65,15 +72,19 @@ inquirer.prompt([
       validate: (input) => /^#?[0-9a-fA-F]{3,6}$|^(black|silver|gray|white|maroon|red|purple|fuchsia|green|lime|olive|yellow|navy|blue|teal|aqua)$/i.test(input) || 'Please enter a valid color keyword or hex code',
     },
   ])
-    .then((answers) => {
-      // Generate SVG using selected template and user input
-      const svg = {Circle, Triangle, Square}[answers.shape](answers.text, answers.textColor, answers.shapeColor);
-        let logo = new Logo()
-        logo.setShape(answers.shape)
-        logo.setText(answers.text, answers.textColor)
-      // Save SVG as file
-      fs.writeFileSync('logo.svg', svg);
-        
-      // Print success message to console
-      console.log('Generated logo.svg');
-    });
+  .then((answers) => {
+    let logo = new Logo(); // Create Logo object first
+    logo.setShape(answers.shape);
+    logo.setShapeColor(answers.shapeColor);
+    logo.setText(answers.text, answers.textColor);
+    
+  
+    // Generate SVG using selected template and user input
+    const svg = logo.render(); // Generate SVG using the Logo object
+  
+    // Save SVG as file
+    fs.writeFileSync('logo.svg', svg);
+    
+    // Print success message to console
+    console.log('Generated logo.svg');
+  });
