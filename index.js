@@ -27,22 +27,32 @@ class Logo {
         switch (shape) {
           case 'circle':
             this.shape = `<circle cx="50%" cy="50%" r="40%"`;
+            this.viewBox = '0 0 100 100';
             break;
           case 'triangle':
             this.shape = `<polygon points="150,50 250,150 50,150"`;
+            this.viewBox = '0 0 300 200';
             break;
           case 'square':
-            this.shape = `<rect x="50" y="50" width="200" height="100"`;
+            this.shape = `<rect x="50" y="50" width="300" height="200"`;
+            this.viewBox = '0 0 300 200';
             break;
           default:
             this.shape = '';
+            this.viewBox = '';
         }
-    }
+      }
+      
 
     render(){
-        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.shape} fill="${this.shapeColor}" />${this.text}</svg>`;
-      }      
+        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="${this.viewBox}">
+          ${this.shape} fill="${this.shapeColor}"/>
+          ${this.text}
+        </svg>`;
+      }
+      
 }
+
 
 
 // Prompt the user for input
