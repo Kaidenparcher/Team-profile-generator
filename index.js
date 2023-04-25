@@ -1,6 +1,30 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const svgTemplates = require('./lib/shape'); // Import SVG templates from another file
+const {Circle, Triangle, Square} = require('./lib/shape')
+const svgTemplates = require('./lib/shape');
+// Import SVG templates from another file
+
+
+class Logo {
+    constructor(){
+        //pass shape and text
+
+    }
+
+
+    //create a functions that will set the shape and the text
+    setText(){
+
+    }
+
+    setShape(){
+
+    }
+
+    render(){
+        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.text}${this.shape}</svg>`
+    }
+}
 
 // Prompt the user for input
 inquirer.prompt([
@@ -32,10 +56,12 @@ inquirer.prompt([
     .then((answers) => {
       // Generate SVG using selected template and user input
       const svg = svgTemplates[answers.shape](answers.text, answers.textColor, answers.shapeColor);
-  
+        let logo = new Logo()
+        logo.setShape(answers.shape)
+        logo.setText(answers.text, answers.textColor)
       // Save SVG as file
       fs.writeFileSync('logo.svg', svg);
-  
+        
       // Print success message to console
       console.log('Generated logo.svg');
     });
